@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="JobsViewer.Layouts.Spinner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:JobsViewer.Layouts"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100">
+    <UserControl.Resources>
+        <Storyboard x:Key="SpinnerStoryboard" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="MainGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource SpinnerStoryboard}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid x:Name="MainGrid" RenderTransformOrigin="0.5,0.5" Height="{ Binding ActualWidth, ElementName=MainGrid, Mode=OneWay }">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+
+        <Path Data="M50,0 L50,15.000001 C30.670034,15 15,30.670034 15.000001,50 15,69.329964 30.670034,85 50,85 L50,100 C22.385763,100 0,77.614235 0,50 0,22.385763 22.385763,0 50,0 z"
+              Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Left" Height="Auto" Stretch="Uniform" VerticalAlignment="Top" Width="Auto">
+            <Path.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF007ACC" Offset="0.15"/>
+                    <GradientStop Color="#FF658FAC" Offset="0.85"/>
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <Path Data="M0,0 C27.614235,0 50,22.385763 50,50 50,77.614235 27.614235,100 0,100 L0,85 C19.329964,85 35,69.329964 35,50 35,30.670034 19.329964,15 0,15.000001 z"
+              Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left" Height="Auto" Stretch="Uniform" VerticalAlignment="Top" Width="Auto">
+            <Path.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB6D2E6" Offset="0.15"/>
+                    <GradientStop Color="#FF658FAC" Offset="0.85"/>
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+        <Ellipse x:Name="ellipse" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Stretch" Width="{Binding ActualHeight, ElementName=ellipse}" Fill="#FF007ACC"/>
+        <Path Data="M0,0 L35.702304,0 71.404605,0 71.057643,0.35533905 C62.009418,9.4035568 49.509421,15 35.702304,15 21.895186,15 9.3951864,9.4035568 0.34696579,0.35533905 z" 
+              Grid.ColumnSpan="2" Grid.Row="2" Fill="#FF658FAC" HorizontalAlignment="Center" Height="Auto" Stretch="Uniform" VerticalAlignment="Top"/>
+    </Grid>
+</UserControl>
